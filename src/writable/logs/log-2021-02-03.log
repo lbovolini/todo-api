@@ -56,3 +56,29 @@ ERROR - 2021-02-03 08:37:43 --> Error connecting to the database: php_network_ge
 ERROR - 2021-02-03 08:40:54 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: Name or service not known
 ERROR - 2021-02-03 08:46:50 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: Name or service not known
 ERROR - 2021-02-03 08:47:54 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: Name or service not known
+ERROR - 2021-02-03 10:08:12 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: Name or service not known
+ERROR - 2021-02-03 10:08:46 --> Error connecting to the database: php_network_getaddresses: getaddrinfo failed: Name or service not known
+ERROR - 2021-02-03 10:11:36 --> mysqli_sql_exception: Table 'users' already exists in /var/www/todo/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:314
+Stack trace:
+#0 /var/www/todo/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(314): mysqli->query('CREATE TABLE `u...')
+#1 /var/www/todo/vendor/codeigniter4/framework/system/Database/BaseConnection.php(713): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `u...')
+#2 /var/www/todo/vendor/codeigniter4/framework/system/Database/BaseConnection.php(641): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `u...')
+#3 /var/www/todo/vendor/codeigniter4/framework/system/Database/Forge.php(525): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `u...')
+#4 /var/www/todo/app/Database/Migrations/2021-02-01-210244_AddUser.php(53): CodeIgniter\Database\Forge->createTable('users')
+#5 /var/www/todo/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(1057): App\Database\Migrations\AddUser->up()
+#6 /var/www/todo/vendor/codeigniter4/framework/system/Database/MigrationRunner.php(202): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 /var/www/todo/vendor/codeigniter4/framework/system/Commands/Database/Migrate.php(94): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 /var/www/todo/vendor/codeigniter4/framework/system/CLI/Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 /var/www/todo/vendor/codeigniter4/framework/system/CLI/CommandRunner.php(80): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 /var/www/todo/vendor/codeigniter4/framework/system/CLI/CommandRunner.php(58): CodeIgniter\CLI\CommandRunner->index(Array)
+#11 /var/www/todo/vendor/codeigniter4/framework/system/CodeIgniter.php(932): CodeIgniter\CLI\CommandRunner->_remap('index', 'migrate')
+#12 /var/www/todo/vendor/codeigniter4/framework/system/CodeIgniter.php(432): CodeIgniter\CodeIgniter->runController(Object(CodeIgniter\CLI\CommandRunner))
+#13 /var/www/todo/vendor/codeigniter4/framework/system/CodeIgniter.php(333): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#14 /var/www/todo/vendor/codeigniter4/framework/system/CLI/Console.php(61): CodeIgniter\CodeIgniter->run()
+#15 /var/www/todo/spark(66): CodeIgniter\CLI\Console->run()
+#16 {main}
+ERROR - 2021-02-03 10:12:24 --> Error connecting to the database: Unknown database 'todo'
+ERROR - 2021-02-03 10:12:47 --> Error connecting to the database: Connection refused
+ERROR - 2021-02-03 10:13:10 --> Error connecting to the database: Unknown database 'todo'
+ERROR - 2021-02-03 10:14:11 --> Error connecting to the database: Unknown database 'todo'
+ERROR - 2021-02-03 10:14:23 --> Error connecting to the database: Unknown database 'todo'
