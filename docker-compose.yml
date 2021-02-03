@@ -1,9 +1,14 @@
 version: "3.1"
 
 services:
-  todo-api-php:
-    container_name: todo-api-php
-    build: .
+  todo_api_php_service:
+    container_name: todo_api_php_container
+    build:
+      context: .
+    image: todo_api_php_image
+    # Overrides the user used to run the container process. 
+    # Default is that set by image (i.e. Dockerfile USER), if not set, root
+    user: user
     restart: always
     ports: 
       - 8080:80
@@ -16,10 +21,10 @@ services:
       start_period: "0s"
       retries: 3
     depends_on:
-      - todo-api-mariadb
+      - todo_api_mariadb_service
 
-  todo-api-mariadb:
-    container_name: todo-api-mariadb
+  todo_api_mariadb_service:
+    container_name: todo_api_mariadb_container
     image: mariadb
     restart: always
     ports: 
