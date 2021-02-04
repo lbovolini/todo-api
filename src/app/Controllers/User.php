@@ -68,7 +68,7 @@ class User extends BaseController implements CrudController {
 
         $data = $this->request->getJSON();
         try {
-            $isUserFound = $this->userModel->transactionalUpdate($data->id, $data);
+            $isUserFound = $this->userModel->findAndUpdate($data->id, $data);
 
             if (!$isUserFound) {
                 return $this->failNotFound("User with id = {$data->id} not found", 'Not Found');
@@ -76,7 +76,7 @@ class User extends BaseController implements CrudController {
         } catch(\Exception $e) {
             return $this->failServerError($e->getMessage(), 'Internal Server Error');
         }
-        
+
         return $this->respond(200);
     }
 

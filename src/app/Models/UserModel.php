@@ -17,7 +17,7 @@ class UserModel extends Model {
         'birthday'
     ];
 
-    public function transactionalUpdate($id, $data): bool {
+    public function findAndUpdate($id, $data): bool {
         // start transaction
         $this->db->transStart();
 
