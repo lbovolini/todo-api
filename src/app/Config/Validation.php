@@ -44,7 +44,7 @@ class Validation
 		'first_name' => 'required|max_length[255]', 
         'last_name' => 'required|max_length[255]', 
         'email' => 'required|max_length[255]|valid_email|is_unique[users.email, id, {id}]',
-        'username' => 'required|max_length[20]|regex_match[^(\w){3,20}\b]',
+        'username' => 'required|max_length[20]|regex_match[^(\w){3,20}\b]|is_unique[users.username, id, {id}]',
         'password' => 'required|max_length[255]|regex_match[^(?=.*[\d])(?=.*[a-z])[\w!@#$%^&*()-=+,.;:]{8,}$]',
         'birthday' => 'required|valid_date'
 	];
