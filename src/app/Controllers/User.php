@@ -67,6 +67,12 @@ class User extends BaseController implements CrudController {
         }
 
         $data = $this->request->getJSON();
+        $data->password = password_hash($data->password, PASSWORD_DEFAULT);
+
+        if (!$data->password) {
+            return $this->failServerError('Password hashing function error', 'Internal Server Error');
+        }
+        
         try {
             $isUserFound = $this->userModel->findAndUpdate($data->id, $data);
 
