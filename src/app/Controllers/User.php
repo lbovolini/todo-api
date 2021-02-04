@@ -5,7 +5,12 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Controllers\Interfaces\CrudController;
 
+use CodeIgniter\API\ResponseTrait;
+
+
 class User extends BaseController implements CrudController {
+
+    use ResponseTrait;    
 
     private $userModel;
 
@@ -15,21 +20,29 @@ class User extends BaseController implements CrudController {
 
     function delete($id) {
         // handle user not found
-        
+
     }
 
     function create() {
+
+        if (!$this->validate('user')) {
+            $errors = $this->validator->getErrors();
+            return $this->fail($errors, 400, 'Bad Request');
+        }
+
         $data = $this->request->getJSON();
         $data->password = password_hash($data->password, PASSWORD_DEFAULT);
 
         if (!$data->password) {
-            // handle error
+            return $this->failServerError('Password hashing function error', 'Internal Server Error');
         }
-        // handle validation errors
 
-        $user = $this->userModel->insert($data);
-
-        return $this->response->setJSON($user);
+        try {
+            $user = $this->userModel->insert($data);
+            return $this->respondCreated($user);
+        } catch(\Exception $e) {
+            return $this->failServerError($e->getMessage(), 'Internal Server Error');
+        }
     }
 
     function find($id) {
