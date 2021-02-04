@@ -19,7 +19,15 @@ class User extends BaseController implements CrudController {
     }
 
     function delete($id) {
-        // handle user not found
+        try {
+            $isUserFound = $this->userModel->findAndDelete($id);
+
+            if (!$isUserFound) {
+                return $this->failNotFound("User with id = {$id} not found", 'Not Found');
+            }
+        } catch(\Exception $e) {
+            return $this->failServerError($e->getMessage(), 'Internal Server Error');
+        }
 
     }
 
@@ -72,7 +80,7 @@ class User extends BaseController implements CrudController {
         if (!$data->password) {
             return $this->failServerError('Password hashing function error', 'Internal Server Error');
         }
-        
+
         try {
             $isUserFound = $this->userModel->findAndUpdate($data->id, $data);
 

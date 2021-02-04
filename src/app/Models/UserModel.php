@@ -17,6 +17,30 @@ class UserModel extends Model {
         'birthday'
     ];
 
+    public function findAndDelete($id) {
+        // start transaction
+        $this->db->transStart();
+
+        $findByIdQuery = "SELECT 1 FROM users WHERE id = '{$id}' LIMIT 1;";
+        $deleteQuery = "DELETE FROM users WHERE id = '{$id}';";
+
+        $result = $this->db->query($findByIdQuery);
+        $isUserFound = $result->getNumRows();
+
+        if ($isUserFound) {
+            $this->db->query($deleteQuery);
+        }
+
+        // end transaction
+        $this->db->transComplete();
+
+        if ($this->db->transStatus() === false) {
+            throw new \RuntimeException("Error executing update query in {$this->table} table");
+        }
+
+        return $isUserFound;
+    }
+
     public function findAndUpdate($id, $data): bool {
         // start transaction
         $this->db->transStart();

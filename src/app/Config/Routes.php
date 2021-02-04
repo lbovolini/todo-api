@@ -41,7 +41,7 @@ $routes->post('todos', 'Todo::create');
 $routes->put('todos', 'Todo::update');
 
 // User Controller
-$routes->delete('users/(:segment)', 'User::delete');
+$routes->delete('users/(:segment)', 'User::delete/$1');
 $routes->get('users/(:segment)', 'User::find/$1');
 $routes->post('users', 'User::create');
 $routes->put('users', 'User::update');
