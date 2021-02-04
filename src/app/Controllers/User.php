@@ -60,17 +60,24 @@ class User extends BaseController implements CrudController {
     }
 
     function update() {
-        $data = $this->request->getJSON();
-        $success = $this->userModel->update($data->id, $data);
 
-        // handle not found
-        // handle validatoin errors
-
-        if (!$success) {
-            // handle error
+        if (!$this->validate('user')) {
+            $errors = $this->validator->getErrors();
+            return $this->fail($errors, 400, 'Bad Request');
         }
 
-        return $this->respond($updatedData, 200);
+        $data = $this->request->getJSON();
+        try {
+            $isUserFound = $this->userModel->transactionalUpdate($data->id, $data);
+
+            if (!$isUserFound) {
+                return $this->failNotFound("User with id = {$data->id} not found", 'Not Found');
+            }
+        } catch(\Exception $e) {
+            return $this->failServerError($e->getMessage(), 'Internal Server Error');
+        }
+        
+        return $this->respond(200);
     }
 
 }
