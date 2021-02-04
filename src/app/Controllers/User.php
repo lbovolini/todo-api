@@ -46,13 +46,17 @@ class User extends BaseController implements CrudController {
     }
 
     function find($id) {
-        $data = $this->userModel->find($id);
+        try {
+            $data = $this->userModel->find($id);
 
-        if (!$data) {
-            // handle user not found
+            if (!$data) {
+                return $this->failNotFound("User with id = {$id} not found", 'Not Found');
+            }
+
+            return $this->respond($data, 200);
+        } catch(\Exception $e) {
+            return $this->failServerError($e->getMessage(), 'Internal Server Error');
         }
-
-        return $this->response->setJSON($data);
     }
 
     function update() {
@@ -66,7 +70,7 @@ class User extends BaseController implements CrudController {
             // handle error
         }
 
-        return $this->response->setJSON($updatedData);
+        return $this->respond($updatedData, 200);
     }
 
 }
