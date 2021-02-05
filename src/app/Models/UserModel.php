@@ -17,9 +17,7 @@ class UserModel extends Model {
         'birthday'
     ];
 
-    public function findAndDelete($rawId) {
-        // sanitize input data
-        $id = static::sanitizeNumber($rawId);
+    public function findAndDelete($id) {
         // start transaction
         $this->db->transStart();
 
@@ -43,11 +41,7 @@ class UserModel extends Model {
         return $isUserFound;
     }
 
-    public function findAndUpdate($rawId, $rawData): bool {
-        // sanitize input data
-        $id = static::sanitizeNumber($rawId);
-        $data = static::sanitizeAll($rawData);
-
+    public function findAndUpdate($id, $data): bool {
         // start transaction
         $this->db->transStart();
 
@@ -79,54 +73,4 @@ class UserModel extends Model {
         return $isUserFound;
     }
 
-    public function insert($rawData = null, $returnID = true) {
-        $data = static::sanitizeAll($rawData);
-
-        parent::insert($data, $returnID);
-    }
-
-
-    private static function sanitizeNumber($id) {
-        $sanitizedId = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
-
-        if (!$sanitizedId) {
-            throw new RuntimeException('Failed to sanitize number');
-        }
-
-        return $sanitizedId;
-    }
-
-    private static function sanitizeString($string) {
-        $sanitizedString = filter_var($string, FILTER_SANITIZE_STRING);
-
-        if (!$sanitizedString) {
-            throw new RuntimeException('Failed to sanitize string');
-        }
-
-        return $sanitizedString;
-    }
-
-    private static function sanitizeEmail($email) {
-        $sanitizedEmail= filter_var($email, FILTER_SANITIZE_EMAIL);
-
-        if (!$sanitizedEmail) {
-            throw new RuntimeException('Failed to sanitize email');
-        }
-
-        return $sanitizedEmail;
-    }
-
-    private static function sanitizeAll($rawData) {
-
-        $data = clone $rawData;
-
-        $data->id = static::sanitizeNumber($rawData->id);
-        $data->first_name = static::sanitizeString($rawData->first_name); 
-        $data->last_name = static::sanitizeString($rawData->last_name);
-        $data->email = static::sanitizeEmail($rawData->email);
-        $data->username = static::sanitizeString($rawData->username);
-        $data->password = static::sanitizeString($rawData->password);
-
-        return $data;
-    }
 }
