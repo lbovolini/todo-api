@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -17,7 +19,7 @@ class UserModel extends Model {
         'birthday'
     ];
 
-    public function findAndDelete($id) {
+    public function findAndDelete($id): bool {
         // start transaction
         $this->db->transStart();
 
@@ -25,7 +27,7 @@ class UserModel extends Model {
         $deleteQuery = "DELETE FROM users WHERE id = '{$id}';";
 
         $result = $this->db->query($findByIdQuery);
-        $isUserFound = $result->getNumRows();
+        $isUserFound = $result->getNumRows() > 0;
 
         if ($isUserFound) {
             $this->db->query($deleteQuery);
@@ -45,7 +47,7 @@ class UserModel extends Model {
         // start transaction
         $this->db->transStart();
 
-        $findByIdQuery = "SELECT 1 FROM users WHERE id = '{$id}';";
+        $findByIdQuery = "SELECT 1 FROM users WHERE id = '{$id}' LIMIT 1;";
         $updateQuery = "UPDATE users " .
             "SET " . 
                 "first_name = '{$data->first_name}', " .
@@ -57,7 +59,7 @@ class UserModel extends Model {
             "WHERE id = '{$id}';";
 
         $result = $this->db->query($findByIdQuery);
-        $isUserFound = $result->getNumRows();
+        $isUserFound = $result->getNumRows() > 0;
 
         if ($isUserFound) {
             $this->db->query($updateQuery);
