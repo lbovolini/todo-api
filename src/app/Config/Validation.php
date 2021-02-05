@@ -44,7 +44,7 @@ class Validation
 	// Rules
 	//--------------------------------------------------------------------
 	public $user = [
-		'id' => 'required_for_update|is_sanitized_number',
+		'id' => 'required_in_update|is_sanitized_number',
 		'first_name' => 'required|trim|max_length[50]|is_sanitized_string', 
         'last_name' => 'required|trim|max_length[100]|is_sanitized_string', 
         'email' => 'required|trim|max_length[100]|is_sanitized_email|valid_email|is_unique[users.email, id, {id}]',

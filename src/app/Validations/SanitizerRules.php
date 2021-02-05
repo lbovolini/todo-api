@@ -22,7 +22,7 @@ class SanitizerRules {
         return strcmp($email, $sanitizedEmail) === 0;
     }
 
-    public function required_for_update($data) {
+    public function required_in_update($data) {
         $request = service('request');
         $method = $request->getMethod();
 
