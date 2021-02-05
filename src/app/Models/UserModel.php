@@ -37,7 +37,7 @@ class UserModel extends Model {
         $this->db->transComplete();
 
         if ($this->db->transStatus() === false) {
-            throw new \RuntimeException("Error executing update query in {$this->table} table");
+            throw new \RuntimeException("Error executing delete query in {$this->table} table");
         }
 
         return $isUserFound;
