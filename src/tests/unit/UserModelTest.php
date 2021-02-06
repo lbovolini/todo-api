@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\BaseResult;
@@ -11,17 +13,34 @@ use App\Models\UserModel;
  */
 class UserModelTest extends CIUnitTestCase {
 
-    private $mockDatabaseConnection;
-    private $userModel;
-    private $userTable = 'users';
+    private string $userTable = 'users';
 
-    public function __construct() {
-        parent::__construct();
+    private UserModel $userModel;
+    private BaseConnection $mockDatabaseConnection;
+    private BaseResult $resultMock;
+
+    protected function setUp(): void {
+
+        parent::setUp();
 
         $this->mockDatabaseConnection = $this->getMockBuilder(BaseConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
+
         $this->userModel = new UserModel($this->mockDatabaseConnection);
+
+        $this->resultMock = $this->getMockBuilder(BaseResult::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    protected function tearDown(): void {
+
+        parent::tearDown();
+
+        unset($this->mockDatabaseConnection);
+        unset($this->userModel);    
+        unset($this->resultMock);    
     }
 
     // findAndDelete method test cases
@@ -29,26 +48,21 @@ class UserModelTest extends CIUnitTestCase {
     /**
      * @test
      */
-    public function shouldFindAndDeleteUserUsingValidId() {
+    public function shouldFindAndDeleteUserUsingValidId(): void {
 
         $userId = 1;
         $expectedNumberOfRowInFindResult = 1;
         $expectedTransactionStatus = true;
 
-        // Query Result Mock
-        $resultMock = $this->getMockBuilder(BaseResult::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         // Query Result Mock behaviors
-        $resultMock->expects($this->once())
+        $this->resultMock->expects($this->once())
             ->method('getNumRows')
             ->will($this->returnValue($expectedNumberOfRowInFindResult));
 
         // Database Connection Mock behaviors
         $this->mockDatabaseConnection->expects($this->exactly(2))
             ->method('query')
-            ->will($this->returnValue($resultMock));
+            ->will($this->returnValue($this->resultMock));
 
         $this->mockDatabaseConnection->expects($this->once())
             ->method('transStatus')
@@ -63,26 +77,21 @@ class UserModelTest extends CIUnitTestCase {
     /**
      * @test
      */
-    public function shouldNotFindAndDeleteUserUsingId() {
+    public function shouldNotFindAndDeleteUserUsingId(): void {
 
         $userId = 2;
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = true;
 
-        // Query Result Mock
-        $resultMock = $this->getMockBuilder(BaseResult::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         // Query Result Mock behaviors
-        $resultMock->expects($this->once())
+        $this->resultMock->expects($this->once())
             ->method('getNumRows')
             ->will($this->returnValue($expectedNumberOfRowInFindResult));
 
         // Database Connection Mock behaviors
         $this->mockDatabaseConnection->expects($this->once())
             ->method('query')
-            ->will($this->returnValue($resultMock));
+            ->will($this->returnValue($this->resultMock));
 
         $this->mockDatabaseConnection->expects($this->once())
             ->method('transStatus')
@@ -97,26 +106,21 @@ class UserModelTest extends CIUnitTestCase {
     /**
      * @test
      */
-    public function shouldThrowRuntimeExceptionWhenFindAndDeleteTransactionFails() {
+    public function shouldThrowRuntimeExceptionWhenFindAndDeleteTransactionFails(): void {
 
         $userId = 1;
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = false;
 
-        // Query Result Mock
-        $resultMock = $this->getMockBuilder(BaseResult::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         // Query Result Mock behaviors
-        $resultMock->expects($this->once())
+        $this->resultMock->expects($this->once())
             ->method('getNumRows')
             ->will($this->returnValue($expectedNumberOfRowInFindResult));
 
         // Database Connection Mock behaviors
         $this->mockDatabaseConnection->expects($this->once())
             ->method('query')
-            ->will($this->returnValue($resultMock));
+            ->will($this->returnValue($this->resultMock));
 
         $this->mockDatabaseConnection->expects($this->once())
             ->method('transStatus')
@@ -135,7 +139,7 @@ class UserModelTest extends CIUnitTestCase {
     /**
      * @test
      */
-    public function shouldFindAndUpdateUsingValidId() {
+    public function shouldFindAndUpdateUsingValidId(): void {
 
         $expectedNumberOfRowInFindResult = 1;
         $expectedTransactionStatus = true;
@@ -149,20 +153,15 @@ class UserModelTest extends CIUnitTestCase {
         $userData->password = 'pass11word';
         $userData->birthday = '1994/07/18';
 
-        // Query Result Mock
-        $resultMock = $this->getMockBuilder(BaseResult::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         // Query Result Mock behaviors
-        $resultMock->expects($this->once())
+        $this->resultMock->expects($this->once())
             ->method('getNumRows')
             ->will($this->returnValue($expectedNumberOfRowInFindResult));
 
         // Database Connection Mock behaviors
         $this->mockDatabaseConnection->expects($this->exactly(2))
             ->method('query')
-            ->will($this->returnValue($resultMock));
+            ->will($this->returnValue($this->resultMock));
 
         $this->mockDatabaseConnection->expects($this->once())
             ->method('transStatus')
@@ -177,7 +176,7 @@ class UserModelTest extends CIUnitTestCase {
     /**
      * @test
      */
-    public function shouldNotFindAndUpdateUserUsingId() {
+    public function shouldNotFindAndUpdateUserUsingId(): void {
 
         $userId = 2;
         $expectedNumberOfRowInFindResult = 0;
@@ -192,20 +191,15 @@ class UserModelTest extends CIUnitTestCase {
         $userData->password = 'pass11word';
         $userData->birthday = '1994/07/18';
 
-        // Query Result Mock
-        $resultMock = $this->getMockBuilder(BaseResult::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         // Query Result Mock behaviors
-        $resultMock->expects($this->once())
+        $this->resultMock->expects($this->once())
             ->method('getNumRows')
             ->will($this->returnValue($expectedNumberOfRowInFindResult));
 
         // Database Connection Mock behaviors
         $this->mockDatabaseConnection->expects($this->once())
             ->method('query')
-            ->will($this->returnValue($resultMock));
+            ->will($this->returnValue($this->resultMock));
 
         $this->mockDatabaseConnection->expects($this->once())
             ->method('transStatus')
@@ -220,7 +214,7 @@ class UserModelTest extends CIUnitTestCase {
         /**
      * @test
      */
-    public function shouldThrowRuntimeExceptionWhenFindAndUpdateTransactionFails() {
+    public function shouldThrowRuntimeExceptionWhenFindAndUpdateTransactionFails(): void {
 
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = false;
@@ -234,20 +228,15 @@ class UserModelTest extends CIUnitTestCase {
         $userData->password = 'pass11word';
         $userData->birthday = '1994/07/18';
 
-        // Query Result Mock
-        $resultMock = $this->getMockBuilder(BaseResult::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         // Query Result Mock behaviors
-        $resultMock->expects($this->once())
+        $this->resultMock->expects($this->once())
             ->method('getNumRows')
             ->will($this->returnValue($expectedNumberOfRowInFindResult));
 
         // Database Connection Mock behaviors
         $this->mockDatabaseConnection->expects($this->once())
             ->method('query')
-            ->will($this->returnValue($resultMock));
+            ->will($this->returnValue($this->resultMock));
 
         $this->mockDatabaseConnection->expects($this->once())
             ->method('transStatus')
