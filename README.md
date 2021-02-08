@@ -1,6 +1,6 @@
 # Todo List
 
-! [CI]&nbsp;(https://github.com/lbovolini/todo-api/.github/workflows/ci/badge.svg)
+![CI](https://github.com/lbovolini/todo-api/.github/workflows/CI/badge.svg)
 
 ##### Tecnologias
 
