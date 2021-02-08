@@ -31,7 +31,7 @@
 		}
 	},
 	"scripts": {
-		"unit": "phpunit tests/unit"
+		"unit": "vendor/bin/phpunit tests/unit"
 	},
 	"support": {
 		"forum": "http://forum.codeigniter.com/",
