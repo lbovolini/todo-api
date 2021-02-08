@@ -128,3 +128,6 @@ nb-configuration.xml
 
 # Docker Database source
 /db
+
+# PHPUnit
+.phpunit.result.cache
