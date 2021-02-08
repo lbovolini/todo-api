@@ -1,24 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Controllers\Interfaces\CrudController;
 
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\HTTP\Response;
 
 
 class User extends BaseController implements CrudController {
 
     use ResponseTrait;    
 
-    private $userModel;
+    private UserModel $userModel;
 
     function __construct() {
         $this->userModel = new UserModel();
     }
 
-    function delete($id) {
+    function delete($id): Response {
         try {
             $isUserFound = $this->userModel->findAndDelete($id);
 
@@ -31,7 +34,7 @@ class User extends BaseController implements CrudController {
 
     }
 
-    function create() {
+    function create(): Response {
 
         if (!$this->validate('user')) {
             $errors = $this->validator->getErrors();
@@ -53,7 +56,7 @@ class User extends BaseController implements CrudController {
         }
     }
 
-    function find($id) {
+    function find($id): Response {
         try {
             $data = $this->userModel->find($id);
 
@@ -67,7 +70,7 @@ class User extends BaseController implements CrudController {
         }
     }
 
-    function update() {
+    function update(): Response {
 
         if (!$this->validate('user')) {
             $errors = $this->validator->getErrors();
