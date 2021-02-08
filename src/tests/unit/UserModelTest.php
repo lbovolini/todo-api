@@ -144,14 +144,15 @@ class UserModelTest extends CIUnitTestCase {
         $expectedNumberOfRowInFindResult = 1;
         $expectedTransactionStatus = true;
 
-        $userData = new StdClass();
-        $userData->id = 1;
-        $userData->first_name = 'Lucas';
-        $userData->last_name = 'Bovolini';
-        $userData->email = 'lbovolini94@gmail.com';
-        $userData->username = 'lbovolini';
-        $userData->password = 'pass11word';
-        $userData->birthday = '1994/07/18';
+        $userData = [
+            'id' => 1,
+            'first_name' => 'Lucas',
+            'last_name' => 'Bovolini',
+            'email' => 'lbovolini94@gmail.com',
+            'username' => 'lbovolini',
+            'password' => 'pass11word',
+            'birthday' => '1994/07/18'
+        ];
 
         // Query Result Mock behaviors
         $this->resultMock->expects($this->once())
@@ -168,7 +169,7 @@ class UserModelTest extends CIUnitTestCase {
             ->will($this->returnValue($expectedTransactionStatus));
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndUpdate($userData->id, $userData);
+        $isUserFound = $this->userModel->findAndUpdate($userData);
 
         $this->assertTrue($isUserFound);
     }
@@ -182,14 +183,15 @@ class UserModelTest extends CIUnitTestCase {
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = true;
 
-        $userData = new StdClass();
-        $userData->id = 1;
-        $userData->first_name = 'Lucas';
-        $userData->last_name = 'Bovolini';
-        $userData->email = 'lbovolini94@gmail.com';
-        $userData->username = 'lbovolini';
-        $userData->password = 'pass11word';
-        $userData->birthday = '1994/07/18';
+        $userData = [
+            'id' => 1,
+            'first_name' => 'Lucas',
+            'last_name' => 'Bovolini',
+            'email' => 'lbovolini94@gmail.com',
+            'username' => 'lbovolini',
+            'password' => 'pass11word',
+            'birthday' => '1994/07/18'
+        ];
 
         // Query Result Mock behaviors
         $this->resultMock->expects($this->once())
@@ -206,7 +208,7 @@ class UserModelTest extends CIUnitTestCase {
             ->will($this->returnValue($expectedTransactionStatus));
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndUpdate($userId, $userData);
+        $isUserFound = $this->userModel->findAndUpdate($userData);
 
         $this->assertFalse($isUserFound);
     }
@@ -219,14 +221,15 @@ class UserModelTest extends CIUnitTestCase {
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = false;
 
-        $userData = new StdClass();
-        $userData->id = 1;
-        $userData->first_name = 'Lucas';
-        $userData->last_name = 'Bovolini';
-        $userData->email = 'lbovolini94@gmail.com';
-        $userData->username = 'lbovolini';
-        $userData->password = 'pass11word';
-        $userData->birthday = '1994/07/18';
+        $userData = [
+            'id' => 1,
+            'first_name' => 'Lucas',
+            'last_name' => 'Bovolini',
+            'email' => 'lbovolini94@gmail.com',
+            'username' => 'lbovolini',
+            'password' => 'pass11word',
+            'birthday' => '1994/07/18'
+        ];
 
         // Query Result Mock behaviors
         $this->resultMock->expects($this->once())
@@ -247,6 +250,6 @@ class UserModelTest extends CIUnitTestCase {
         $this->expectExceptionMessage("Error executing update query in {$this->userTable} table");
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndUpdate($userData->id, $userData);
+        $isUserFound = $this->userModel->findAndUpdate($userData);
     }
 }
