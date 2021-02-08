@@ -1,3 +1,7 @@
+# Todo List
+
+! [CI]&nbsp;(https://github.com/lbovolini/todo-api/.github/workflows/ci/badge.svg)
+
 ##### Tecnologias
 
 - Docker
