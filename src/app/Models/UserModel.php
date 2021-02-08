@@ -24,7 +24,7 @@ class UserModel extends Model {
         $this->db->transStart();
 
         $findByIdQuery = "SELECT 1 FROM users WHERE id = '{$id}' LIMIT 1;";
-        $deleteQuery = "DELETE FROM users WHERE id = '{$id}';";
+        $deleteQuery = "DELETE FROM users WHERE id = '{$id}' LIMIT 1;";
 
         $result = $this->db->query($findByIdQuery);
         $isUserFound = $result->getNumRows() > 0;
@@ -56,7 +56,7 @@ class UserModel extends Model {
                 "username = '{$data->username}', " .
                 "password = '{$data->password}', " .
                 "birthday = '{$data->birthday}' " .
-            "WHERE id = '{$id}';";
+            "WHERE id = '{$id}' LIMIT 1;";
 
         $result = $this->db->query($findByIdQuery);
         $isUserFound = $result->getNumRows() > 0;
