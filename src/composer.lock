@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "692482567505c8f3931c065992c1b1d1",
+    "content-hash": "ed5fb9d7b85fc1ead25ce26d707c5b92",
     "packages": [
         {
             "name": "codeigniter4/framework",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "424bfa7ba7b2d8fb88a24272d750273c31d47d58"
+                "reference": "ddc18eb2f42a17a51347c4c25cce9d2aaebcb718"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/424bfa7ba7b2d8fb88a24272d750273c31d47d58",
-                "reference": "424bfa7ba7b2d8fb88a24272d750273c31d47d58",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/ddc18eb2f42a17a51347c4c25cce9d2aaebcb718",
+                "reference": "ddc18eb2f42a17a51347c4c25cce9d2aaebcb718",
                 "shasum": ""
             },
             "require": {
@@ -61,7 +61,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2021-02-01T02:56:36+00:00"
+            "time": "2021-02-01T18:41:38+00:00"
         },
         {
             "name": "kint-php/kint",
@@ -2508,7 +2508,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3||^8.0"
+        "php": "^7.4||^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
