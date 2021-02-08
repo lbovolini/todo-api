@@ -35,3 +35,7 @@ jobs:
 
     - name: Run unit tests
       run: composer run-script unit
+
+    - name: Debugging with tmate
+      uses: mxschmitt/action-tmate@v3.3
+
