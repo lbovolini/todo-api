@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Database\Query;
 
 class UserModel extends Model {
     
@@ -19,18 +20,20 @@ class UserModel extends Model {
         'birthday'
     ];
 
-    public function findAndDelete($id): bool {
+    public function findAndDelete(int $id): bool {
+
+        $findByIdQuery = "SELECT 1 FROM {$this->table} WHERE id = :id: LIMIT 1;";
+
+        $deleteQuery = "DELETE FROM {$this->table} WHERE id = :id: LIMIT 1;";
+
         // start transaction
         $this->db->transStart();
 
-        $findByIdQuery = "SELECT 1 FROM users WHERE id = '{$id}' LIMIT 1;";
-        $deleteQuery = "DELETE FROM users WHERE id = '{$id}' LIMIT 1;";
-
-        $result = $this->db->query($findByIdQuery);
+        $result = $this->db->query($findByIdQuery, ['id' => $id]);
         $isUserFound = $result->getNumRows() > 0;
 
         if ($isUserFound) {
-            $this->db->query($deleteQuery);
+            $this->db->query($deleteQuery, ['id' => $id]);
         }
 
         // end transaction
@@ -43,26 +46,28 @@ class UserModel extends Model {
         return $isUserFound;
     }
 
-    public function findAndUpdate($id, $data): bool {
+    public function findAndUpdate(array $data): bool {
+
+        $findByIdQuery = "SELECT 1 FROM {$this->table} WHERE id = :id: LIMIT 1;";
+
+        $updateQuery = "UPDATE {$this->table} " .
+            "SET " . 
+                "first_name = :first_name:, " .
+                "last_name  = :last_name:, " .
+                "email      = :email:, " .
+                "username   = :username:, " .
+                "password   = :password:, " .
+                "birthday   = :birthday: " .
+            "WHERE id = :id: LIMIT 1;";
+
         // start transaction
         $this->db->transStart();
 
-        $findByIdQuery = "SELECT 1 FROM users WHERE id = '{$id}' LIMIT 1;";
-        $updateQuery = "UPDATE users " .
-            "SET " . 
-                "first_name = '{$data->first_name}', " .
-                "last_name = '{$data->last_name}', " .
-                "email = '{$data->email}', " .
-                "username = '{$data->username}', " .
-                "password = '{$data->password}', " .
-                "birthday = '{$data->birthday}' " .
-            "WHERE id = '{$id}' LIMIT 1;";
-
-        $result = $this->db->query($findByIdQuery);
+        $result = $this->db->query($findByIdQuery, $data);
         $isUserFound = $result->getNumRows() > 0;
 
         if ($isUserFound) {
-            $this->db->query($updateQuery);
+            $this->db->query($updateQuery, $data);
         }
         
         // end transaction
