@@ -12,7 +12,8 @@
 		"fakerphp/faker": "^1.9",
 		"mikey179/vfsstream": "^1.6",
 		"phpunit/phpunit": "^9.5",
-		"phpunit/php-code-coverage": "^9.2"
+		"phpunit/php-code-coverage": "^9.2",
+		"vimeo/psalm": "^4.4"
 	},
 	"suggest": {
 		"ext-fileinfo": "Improves mime type detection for files"
