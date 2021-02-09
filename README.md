@@ -1,6 +1,6 @@
 # Todo List
 
-![CI](https://github.com/lbovolini/todo-api/workflows/CI/badge.svg) ![Coverage](https://shepherd.dev/github/lbovolini/todo-api/coverage.svg) 
+![CI](https://github.com/lbovolini/todo-api/workflows/CI/badge.svg) ![Coverage](https://shepherd.dev/github/lbovolini/todo-api/coverage.svg) [![Coverage Status](https://coveralls.io/repos/github/lbovolini/todo-api/badge.svg?branch=main)](https://coveralls.io/github/lbovolini/todo-api?branch=main)
 
 Todo list API 
 
