@@ -37,7 +37,10 @@ jobs:
     - name: Run unit tests
       run: composer run-script unit
 
-    - name: Psalm
-      uses: docker://vimeo/psalm-github-actions
-      with:
-        args: --shepherd
+    #- name: Psalm
+    #  uses: docker://vimeo/psalm-github-actions
+    #  with:
+    #    args: --shepherd
+
+    - name: Run Coveralls
+      run: php vendor/bin/coveralls
