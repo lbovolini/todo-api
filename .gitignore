@@ -48,21 +48,21 @@ Vagrantfile
 #-------------------------
 # Temporary Files
 #-------------------------
-src/writable/cache/*
-src/!writable/cache/index.html
+writable/cache/*
+!writable/cache/index.html
 
-src/writable/logs/*
-!src/writable/logs/index.html
+writable/logs/*
+!writable/logs/index.html
 
-src/writable/session/*
-!src/writable/session/index.html
+writable/session/*
+!writable/session/index.html
 
-src/writable/uploads/*
-!src/writable/uploads/index.html
+writable/uploads/*
+!writable/uploads/index.html
 
-src/writable/debugbar/*
+writable/debugbar/*
 
-src/php_errors.log
+php_errors.log
 
 #-------------------------
 # User Guide Temp Files

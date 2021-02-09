@@ -65,7 +65,7 @@ class User extends BaseController implements CrudController {
             }
 
             return $this->respond($data, 200);
-        } catch(\Exception $e) {
+        } catch(\Throwable $e) {
             return $this->failServerError($e->getMessage(), 'Internal Server Error');
         }
     }

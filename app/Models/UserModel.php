@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use CodeIgniter\Model;
-use CodeIgniter\Database\Query;
 
 class UserModel extends Model {
     
