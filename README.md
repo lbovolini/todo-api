@@ -1,6 +1,8 @@
 # Todo List
 
-![CI](https://github.com/lbovolini/todo-api/workflows/CI/badge.svg)
+![CI](https://github.com/lbovolini/todo-api/workflows/CI/badge.svg) ![Coverage](https://shepherd.dev/github/lbovolini/todo-api/coverage.svg) 
+
+Todo list API 
 
 ##### Tecnologias
 
