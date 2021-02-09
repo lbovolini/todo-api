@@ -43,4 +43,4 @@ jobs:
     #    args: --shepherd
 
     - name: Run Coveralls
-      run: php vendor/bin/coveralls
+      run: php vendor/bin/php-coveralls
