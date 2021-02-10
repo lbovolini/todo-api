@@ -35,12 +35,14 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Run unit tests
-      run: composer run-script unit
+      run: export XDEBUG_MODE=coverage && composer run-script unit
 
     #- name: Psalm
     #  uses: docker://vimeo/psalm-github-actions
     #  with:
     #    args: --shepherd
 
-    - name: Run Coveralls
-      run: php vendor/bin/php-coveralls
+    - name: Upload coverage results to Coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: php vendor/bin/php-coveralls -v
