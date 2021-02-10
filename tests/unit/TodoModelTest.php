@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Models\UserModel;
+use App\Models\TodoModel;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\BaseResult;
 use CodeIgniter\Test\CIUnitTestCase;
@@ -10,11 +10,11 @@ use CodeIgniter\Test\CIUnitTestCase;
 /**
  * Should NOT touch Database
  */
-class UserModelTest extends CIUnitTestCase {
+class TodoModelTest extends CIUnitTestCase {
 
-    private string $userTable = 'users';
+    private string $todoTable = 'todos';
 
-    private UserModel $userModel;
+    private TodoModel $todoModel;
     private BaseConnection $mockDatabaseConnection;
     private BaseResult $mockResult;
 
@@ -26,7 +26,7 @@ class UserModelTest extends CIUnitTestCase {
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->userModel = new UserModel($this->mockDatabaseConnection);
+        $this->todoModel = new TodoModel($this->mockDatabaseConnection);
 
         $this->mockResult = $this->getMockBuilder(BaseResult::class)
             ->disableOriginalConstructor()
@@ -38,7 +38,7 @@ class UserModelTest extends CIUnitTestCase {
         parent::tearDown();
 
         unset($this->mockDatabaseConnection);
-        unset($this->userModel);    
+        unset($this->todoModel);
         unset($this->mockResult);
     }
 
@@ -47,9 +47,9 @@ class UserModelTest extends CIUnitTestCase {
     /**
      * @test
      */
-    public function shouldFindAndDeleteUserUsingValidId(): void {
+    public function shouldFindAndDeleteTodoUsingValidId(): void {
 
-        $userId = 1;
+        $todoId = 1;
         $expectedNumberOfRowInFindResult = 1;
         $expectedTransactionStatus = true;
 
@@ -68,17 +68,17 @@ class UserModelTest extends CIUnitTestCase {
             ->will($this->returnValue($expectedTransactionStatus));
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndDelete($userId);
+        $isTodoFound = $this->todoModel->findAndDelete($todoId);
 
-        $this->assertTrue($isUserFound);
+        $this->assertTrue($isTodoFound);
     }
 
     /**
      * @test
      */
-    public function shouldNotFindAndDeleteUserUsingId(): void {
+    public function shouldNotFindAndDeleteTodoUsingId(): void {
 
-        $userId = 2;
+        $todoId = 2;
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = true;
 
@@ -97,17 +97,18 @@ class UserModelTest extends CIUnitTestCase {
             ->will($this->returnValue($expectedTransactionStatus));
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndDelete($userId);
+        $isTodoFound = $this->todoModel->findAndDelete($todoId);
 
-        $this->assertFalse($isUserFound);
+        $this->assertFalse($isTodoFound);
     }
+
 
     /**
      * @test
      */
     public function shouldThrowRuntimeExceptionWhenFindAndDeleteTransactionFails(): void {
 
-        $userId = 1;
+        $todoId = 1;
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = false;
 
@@ -127,10 +128,10 @@ class UserModelTest extends CIUnitTestCase {
 
         // Assertions
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("Error executing delete query in {$this->userTable} table");
+        $this->expectExceptionMessage("Error executing delete query in {$this->todoTable} table");
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndDelete($userId);
+        $this->todoModel->findAndDelete($todoId);
     }
 
     // findAndUpdate method test cases
@@ -143,14 +144,9 @@ class UserModelTest extends CIUnitTestCase {
         $expectedNumberOfRowInFindResult = 1;
         $expectedTransactionStatus = true;
 
-        $userData = [
+        $todoData = [
             'id' => 1,
-            'first_name' => 'Lucas',
-            'last_name' => 'Bovolini',
-            'email' => 'lbovolini94@gmail.com',
-            'username' => 'lbovolini',
-            'password' => 'pass11word',
-            'birthday' => '1994/07/18'
+            'users_id' => 1
         ];
 
         // Query Result Mock behaviors
@@ -168,9 +164,9 @@ class UserModelTest extends CIUnitTestCase {
             ->will($this->returnValue($expectedTransactionStatus));
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndUpdate($userData);
+        $isTodoFound = $this->todoModel->findAndUpdate($todoData);
 
-        $this->assertTrue($isUserFound);
+        $this->assertTrue($isTodoFound);
     }
 
     /**
@@ -178,18 +174,12 @@ class UserModelTest extends CIUnitTestCase {
      */
     public function shouldNotFindAndUpdateUserUsingId(): void {
 
-        $userId = 2;
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = true;
 
-        $userData = [
+        $todoData = [
             'id' => 1,
-            'first_name' => 'Lucas',
-            'last_name' => 'Bovolini',
-            'email' => 'lbovolini94@gmail.com',
-            'username' => 'lbovolini',
-            'password' => 'pass11word',
-            'birthday' => '1994/07/18'
+            'users_id' => 1
         ];
 
         // Query Result Mock behaviors
@@ -207,9 +197,9 @@ class UserModelTest extends CIUnitTestCase {
             ->will($this->returnValue($expectedTransactionStatus));
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndUpdate($userData);
+        $isTodoFound = $this->todoModel->findAndUpdate($todoData);
 
-        $this->assertFalse($isUserFound);
+        $this->assertFalse($isTodoFound);
     }
 
     /**
@@ -220,14 +210,9 @@ class UserModelTest extends CIUnitTestCase {
         $expectedNumberOfRowInFindResult = 0;
         $expectedTransactionStatus = false;
 
-        $userData = [
+        $todoData = [
             'id' => 1,
-            'first_name' => 'Lucas',
-            'last_name' => 'Bovolini',
-            'email' => 'lbovolini94@gmail.com',
-            'username' => 'lbovolini',
-            'password' => 'pass11word',
-            'birthday' => '1994/07/18'
+            'users_id' => 1
         ];
 
         // Query Result Mock behaviors
@@ -246,9 +231,9 @@ class UserModelTest extends CIUnitTestCase {
 
         // Assertions
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage("Error executing update query in {$this->userTable} table");
+        $this->expectExceptionMessage("Error executing update query in {$this->todoTable} table");
 
         // Should test ONLY this method
-        $isUserFound = $this->userModel->findAndUpdate($userData);
+        $this->todoModel->findAndUpdate($todoData);
     }
 }

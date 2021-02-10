@@ -11,9 +11,6 @@
 		stopOnIncomplete="false"
 		stopOnSkipped="false"
 		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-	<whitelist processUncoveredFilesFromWhitelist="true">
-		<directory suffix=".php">./app</directory>
-	</whitelist>
 	<coverage includeUncoveredFiles="true" processUncoveredFiles="true">
 		<include>
 			<directory suffix=".php">./app</directory>

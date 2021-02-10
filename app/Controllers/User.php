@@ -21,13 +21,15 @@ class User extends BaseController implements CrudController {
         $this->userModel = new UserModel();
     }
 
-    function delete($id): Response {
+    function delete(int $id): Response {
         try {
             $isUserFound = $this->userModel->findAndDelete($id);
 
             if (!$isUserFound) {
                 return $this->failNotFound("User with id = {$id} not found", 'Not Found');
             }
+
+            return $this->respondNoContent();
         } catch(\Exception $e) {
             return $this->failServerError($e->getMessage(), 'Internal Server Error');
         }
@@ -41,14 +43,14 @@ class User extends BaseController implements CrudController {
             return $this->fail($errors, 400, 'Bad Request');
         }
 
-        $data = $this->request->getJSON();
-        $data->password = password_hash($data->password, PASSWORD_DEFAULT);
-
-        if (!$data->password) {
-            return $this->failServerError('Password hashing function error', 'Internal Server Error');
-        }
-
         try {
+            $data = $this->request->getJSON();
+            $data->password = password_hash($data->password, PASSWORD_DEFAULT);
+
+            if (!$data->password) {
+                return $this->failServerError('Password hashing function error', 'Internal Server Error');
+            }
+
             $user = $this->userModel->insert($data);
             return $this->respondCreated($user);
         } catch(\Exception $e) {
@@ -56,7 +58,7 @@ class User extends BaseController implements CrudController {
         }
     }
 
-    function find($id): Response {
+    function find(int $id): Response {
         try {
             $data = $this->userModel->find($id);
 
@@ -65,7 +67,7 @@ class User extends BaseController implements CrudController {
             }
 
             return $this->respond($data, 200);
-        } catch(\Throwable $e) {
+        } catch(\Exception $e) {
             return $this->failServerError($e->getMessage(), 'Internal Server Error');
         }
     }
@@ -77,24 +79,25 @@ class User extends BaseController implements CrudController {
             return $this->fail($errors, 400, 'Bad Request');
         }
 
-        $data = $this->request->getJSON(true);
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-        if (!$data['password']) {
-            return $this->failServerError('Password hashing function error', 'Internal Server Error');
-        }
-
         try {
+
+            $data = $this->request->getJSON(true);
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+            if (!$data['password']) {
+                return $this->failServerError('Password hashing function error', 'Internal Server Error');
+            }
+
             $isUserFound = $this->userModel->findAndUpdate($data);
 
             if (!$isUserFound) {
                 return $this->failNotFound("User with id = {$data['id']} not found", 'Not Found');
             }
+
+            return $this->respondUpdated();
         } catch(\Exception $e) {
             return $this->failServerError($e->getMessage(), 'Internal Server Error');
         }
-
-        return $this->respond(200);
     }
 
 }

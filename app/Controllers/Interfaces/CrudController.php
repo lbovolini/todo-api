@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controllers\Interfaces;
 
 interface CrudController {
 
-    function delete($id);
+    function delete(int $id);
 
     function create();
 
-    function find($id);
+    function find(int $id);
 
     function update();
 }

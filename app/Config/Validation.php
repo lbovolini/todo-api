@@ -52,4 +52,9 @@ class Validation
         'password' => 'required|trim|max_length[255]|is_sanitized_string|regex_match[^(?=.*[\d])(?=.*[a-z])[\w!@#$%^&*()-=+,.;:]{8,}$]',
         'birthday' => 'required|trim|valid_date'
 	];
+
+	public $todo = [
+	    'id' => 'required_in_update|is_sanitized_number',
+        'users_id' => 'required|is_sanitized_number'
+    ];
 }
