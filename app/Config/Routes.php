@@ -35,7 +35,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 
 // Todo Controller
-$routes->delete('todos/(:segment)', 'Todo::delete');
+$routes->delete('todos/(:segment)', 'Todo::delete/$1');
 $routes->get('todos/(:segment)', 'Todo::find/$1');
 $routes->post('todos', 'Todo::create');
 $routes->put('todos', 'Todo::update');
