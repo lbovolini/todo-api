@@ -58,5 +58,5 @@ docker-compose exec -w /var/www/todo todo_api_php_service php spark migrate
 ##### Popular base de dados
 
 ```bash
-docker-compose exec -w /var/www/todo todo_api_php_service php spark db:seed UserSeeder
+docker-compose exec -w /var/www/todo todo_api_php_service php spark db:seed AllSeeder
 ```
