@@ -35,7 +35,7 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-suggest
 
     - name: Run unit tests
-      run: composer run-script unit
+      run: export XDEBUG_MODE=coverage && composer run-script unit
 
     #- name: Psalm
     #  uses: docker://vimeo/psalm-github-actions
