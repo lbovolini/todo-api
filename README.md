@@ -1,6 +1,6 @@
 # Todo List
 
-![CI](https://github.com/lbovolini/todo-api/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/lbovolini/todo-api/badge.svg?branch=main)](https://coveralls.io/github/lbovolini/todo-api?branch=main)
+![CI](https://github.com/lbovolini/todo-api/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/lbovolini/todo-api/badge.svg?branch=main)](https://coveralls.io/github/lbovolini/todo-api?branch=main) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Todo list API 
 
