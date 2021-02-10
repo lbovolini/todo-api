@@ -21,6 +21,29 @@ Todo list API
 
 - Suporta somente requisições e respostas do tipo application/json
 
+##### Arquivo de configuração de ambiente de desenvolvimento
+
+- Crie um arquivo chamado **.env** na pasta raiz da aplicação com o seguinte conteúdo:
+
+  ```bash
+  #--------------------------------------------------------------------
+  # ENVIRONMENT
+  #--------------------------------------------------------------------
+  
+  CI_ENVIRONMENT = development
+  
+  #--------------------------------------------------------------------
+  # DATABASE
+  #--------------------------------------------------------------------
+  
+  database.default.hostname = todo_api_mariadb_service
+  database.default.database = todo
+  database.default.username = dev
+  database.default.password = dev
+  database.default.port = 3306
+  database.default.DBDriver = MySQLi
+  ```
+
 ##### Iniciando a aplicação
 
 - Build
