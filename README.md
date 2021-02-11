@@ -64,6 +64,27 @@ Todo list API
   http://localhost:8080
   ```
 
+
+##### Banco de dados
+
+- Criar
+
+  ```bash
+  docker-compose exec todo_api_mariadb_service mysql -udev -pdev  -e "CREATE DATABASE IF NOT EXISTS todo";
+  ```
+
+- Tabelas
+
+  ```bash
+  docker-compose exec -w /var/www/todo todo_api_php_service php spark migrate
+  ```
+
+- Popular
+
+  ```bash
+  docker-compose exec -w /var/www/todo todo_api_php_service php spark db:seed AllSeeder
+  ```
+
 ##### Executar Testes
 
 - Unit
@@ -71,15 +92,3 @@ Todo list API
   ```bash
   docker-compose exec -w /var/www/todo todo_api_php_service vendor/bin/phpunit 
   ```
-
-##### Executar migrations
-
-```bash
-docker-compose exec -w /var/www/todo todo_api_php_service php spark migrate
-```
-
-##### Popular base de dados
-
-```bash
-docker-compose exec -w /var/www/todo todo_api_php_service php spark db:seed AllSeeder
-```
