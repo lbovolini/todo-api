@@ -1,6 +1,7 @@
 # Todo List
 
 ![CI](https://github.com/lbovolini/todo-api/workflows/CI/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/lbovolini/todo-api/badge.svg?branch=main)](https://coveralls.io/github/lbovolini/todo-api?branch=main) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flbovolini%2Ftodo-api.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Flbovolini%2Ftodo-api?ref=badge_shield)
 
 Todo list API 
 
@@ -92,3 +93,6 @@ Todo list API
   ```bash
   docker-compose exec -w /var/www/todo todo_api_php_service vendor/bin/phpunit 
   ```
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flbovolini%2Ftodo-api.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Flbovolini%2Ftodo-api?ref=badge_large)
